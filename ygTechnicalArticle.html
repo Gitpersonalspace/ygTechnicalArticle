@@ -1,0 +1,698 @@
+<template>
+    <div class="d-none">
+        <a class="triggerNav" onclick={handleNavigate}>trigger</a>
+    </div>
+    <div class="row mt-56 mr-lg-0 mb-72 down-section">
+        <div class="col-lg-4 pr-lg-5 down-search">
+            <h2 class="f14 grey-darkest fbold mb-3 noto-font">
+                {label.filterByProductsLbl}
+            </h2>
+            <div class="dropdown-sec">
+                <div class="d-none">
+                    <a href="javascript:void(0)" class="v2Link triggerClick" onclick={triggerSelect}>Click trigger</a>
+                    <input type="text" name="hiddenLevel">
+                    <input type="text" name="hiddenModel">
+                </div>
+                <div class="form-group select-lg">
+                    <select class="form-control selectpicker" name="category-1" id="category-1">
+                        <option value="">{label.allLbl}</option>
+                        <template for:each={categories} for:item="category">
+                            <option key={category.key} value={category.key}>
+                                {category.value}
+                            </option>
+                        </template>
+                    </select>
+                </div>
+            </div>
+            <div class="form-check custom-chkbox pl-0 mt-56">
+                <input class="form-check-input" type="checkbox" name="filterType" id="filterType-1" value="0"
+                    data-name="Installation_hardware__c" onchange={handleChkChange}>
+                <label class="form-check-label grey-darkest f14 fbold" for="filterType-1">
+                    {label.Installation_hardware}
+                </label>
+            </div>
+            <div class="row mt-3 ml-0">
+                <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+            </div>
+            <div class="form-check custom-chkbox pl-0 mt-38">
+                <input class="form-check-input" type="checkbox" name="filterType" id="filterType-2" value="1"
+                    data-name="Installation_software__c" onchange={handleChkChange}>
+                <label class="form-check-label grey-darkest f14 fbold" for="filterType-2">
+                    {label.Installation_software}
+                </label>
+            </div>
+            <div class="row mt-3 ml-0">
+                <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+            </div>
+            <div class="form-check custom-chkbox pl-0 mt-38">
+                <input class="form-check-input" type="checkbox" name="filterType" id="filterType-3" value="2"
+                    data-name="Specification__c" onchange={handleChkChange}>
+                <label class="form-check-label grey-darkest f14 fbold" for="filterType-3">
+                    {label.Specification}
+                </label>
+            </div>
+            <div class="row mt-3 ml-0 mb-3">
+                <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+            </div>
+             <div class="form-check custom-chkbox pl-0 mt-38">
+                <input class="form-check-input" type="checkbox" name="filterType" id="filterType-4" value="3"
+                    data-name="Calibration__c" onchange={handleChkChange}>
+                <label class="form-check-label grey-darkest f14 fbold" for="filterType-4">
+                    {label.Calibration}
+                </label>
+            </div>
+            <div class="row mt-3 ml-0 mb-3">
+                <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+            </div>
+            <div class="form-check custom-chkbox pl-0 mt-38">
+                <input class="form-check-input" type="checkbox" name="filterType" id="filterType-5" value="4"
+                    data-name="Technology__c" onchange={handleChkChange}>
+                <label class="form-check-label grey-darkest f14 fbold" for="filterType-5">
+                    {label.Technology}
+                </label>
+            </div>
+            <div class="row mt-3 ml-0 mb-3">
+                <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+            </div>
+            <div class="form-check custom-chkbox pl-0 mt-38">
+                <input class="form-check-input" type="checkbox" name="filterType" id="filterType-6" value="5"
+                    data-name="Repair_Physical_damage__c" onchange={handleChkChange}>
+                <label class="form-check-label grey-darkest f14 fbold" for="filterType-6">
+                    {label.Repair}
+                </label>
+            </div>
+            <div class="row mt-3 ml-0 mb-3">
+                <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+            </div>
+            <div class="form-check custom-chkbox pl-0 mt-38">
+                <input class="form-check-input" type="checkbox" name="filterType" id="filterType-7" value="6"
+                    data-name="Application__c" onchange={handleChkChange}>
+                <label class="form-check-label grey-darkest f14 fbold" for="filterType-7">
+                    {label.Application}
+                </label>
+            </div>
+            <div class="row mt-3 ml-0 mb-3">
+                <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+            </div>
+            <div class="form-check custom-chkbox pl-0 mt-38">
+                <input class="form-check-input" type="checkbox" name="filterType" id="filterType-8" value="7"
+                    data-name="Operation__c" onchange={handleChkChange}>
+                <label class="form-check-label grey-darkest f14 fbold" for="filterType-8">
+                    {label.Operation}
+                </label>
+            </div>
+            <div class="row mt-3 ml-0 mb-3">
+                <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+            </div>
+            
+            <div class="form-group row mb-56">
+                <div class="col-lg-12 text-center text-lg-left">
+                    <button type="button" onclick={resetFilter}
+                        class="btn btn-primary text-uppercase f14 ft-weight-900">
+                        {label.resetLbl}
+                    </button>
+                </div>
+            </div>
+            <!-- <c-yg-need-help></c-yg-need-help>
+            <c-yg-portal-feedback></c-yg-portal-feedback> -->
+            <div class="mb-72"></div>
+        </div>
+        <div class="col-lg-8">
+            <div class="row installHardware-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Installation_hardware__c"
+                        data-class=".install-hardware-dtTable" data-parent=".installHardware-grid">
+                        <div class="col-lg-9">
+                            <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Installation_hardware}</h2>
+                        </div>
+                        <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                            <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                <i class="fas pr-2">
+                                    <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                            stroke-linecap="square" />
+                                    </svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                    </div>
+                    <div class="row grid-sec">
+                        <div class="col-lg-12"> 
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" data-class="install-hardware-dtTable"
+                                    class="table table-borderless f14 install-hardware-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row installSoftware-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Installation_software__c"
+                        data-class=".install-software-dtTable" data-parent=".installSoftware-grid">
+                        <div class="col-lg-9">
+                            <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Installation_software}</h2>
+                        </div>
+                        <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                            <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                <i class="fas pr-2">
+                                    <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                            stroke-linecap="square" />
+                                    </svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                    </div>
+                    <div class="row grid-sec">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" class="table table-borderless f14 install-software-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row specification-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Specification__c"
+                        data-class=".specification-dtTable" data-parent=".specification-grid">
+                        <div class="col-lg-9">
+                            <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Specification}</h2>
+                        </div>
+                        <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                            <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                <i class="fas pr-2">
+                                    <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                            stroke-linecap="square" />
+                                    </svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                    </div>
+                    <div class="row grid-sec">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" class="table table-borderless f14 specification-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row calibrations-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Calibration__c"
+                        data-class=".calibration-dtTable" data-parent=".calibrations-grid">
+                        <div class="col-lg-9">
+                            <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Calibration}</h2>
+                        </div>
+                        <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                            <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                <i class="fas pr-2">
+                                    <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                            stroke-linecap="square" />
+                                    </svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                    </div>
+                    <div class="row grid-sec">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" class="table table-borderless f14 calibration-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row technologys-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Technology__c"
+                        data-class=".technology-dtTable" data-parent=".technologys-grid">
+                        <div class="col-lg-9">
+                            <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Technology}</h2>
+                        </div>
+                        <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                            <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                <i class="fas pr-2">
+                                    <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                            stroke-linecap="square" />
+                                    </svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                    </div>
+                    <div class="row grid-sec">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" class="table table-borderless f14 technology-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row repair_physical_damages-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Repair_Physical_damage__c"
+                        data-class=".repair_physical_damage-dtTable" data-parent=".repair_physical_damages-grid">
+                        <div class="col-lg-9">
+                            <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Repair}</h2>
+                        </div>
+                        <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                            <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                <i class="fas pr-2">
+                                    <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                            stroke-linecap="square" />
+                                    </svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                    </div>
+                    <div class="row grid-sec">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" class="table table-borderless f14 repair_physical_damage-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row applications-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Application__c"
+                        data-class=".application-dtTable" data-parent=".applications-grid">
+                        <div class="col-lg-9">
+                            <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Application}</h2>
+                        </div>
+                        <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                            <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                <i class="fas pr-2">
+                                    <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                            stroke-linecap="square" />
+                                    </svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                    </div>
+                    <div class="row grid-sec">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" class="table table-borderless f14 application-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row operations-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Operation__c"
+                        data-class=".operation-dtTable" data-parent=".operations-grid">
+                        <div class="col-lg-9">
+                            <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Operation}</h2>
+                        </div>
+                        <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                            <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                <i class="fas pr-2">
+                                    <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                            stroke-linecap="square" />
+                                    </svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                    </div>
+                    <div class="row grid-sec">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" class="table table-borderless f14 operation-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row search-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" class="table table-borderless f14 searchDown-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <template if:true={hasInstallationSoft}>
+                <div class="row installHardware-grid1" >
+                    <div class="col-lg-12 mb-56">
+                        <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Installation_hardware__c"
+                            data-class=".install-hardware-dtTable" data-parent=".installHardware-grid1">
+                            <div class="col-lg-9">
+                                <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Installation_hardware}</h2>
+                            </div>
+                            <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                                <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                    <i class="fas pr-2">
+                                        <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                                stroke-linecap="square" />
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mx-0">
+                            <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                        </div>
+                        <div class="row grid-sec">
+                            <div class="col-lg-12"> 
+                                <div class="table-responsive">
+                                    <table lwc:dom="manual" class="table table-borderless f14 hasInstallationSoft-dtTable1">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={hasInstallationHard}>    
+                <div class="row installSoftware-grid1" >
+                    <div class="col-lg-12 mb-56">
+                        <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Installation_software__c"
+                            data-class=".install-software-dtTable" data-parent=".installSoftware-grid1">
+                            <div class="col-lg-9">
+                                <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Installation_software}</h2>
+                            </div>
+                            <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                                <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                    <i class="fas pr-2">
+                                        <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                                stroke-linecap="square" />
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mx-0">
+                            <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                        </div>
+                        <div class="row grid-sec">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table lwc:dom="manual" class="table table-borderless f14 hasInstallationHard-dtTable1">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={hasSpecification}>    
+                <div class="row specification-grid1">
+                    <div class="col-lg-12 mb-56">
+                        <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Specification__c"
+                            data-class=".specification-dtTable" data-parent=".specification-grid1">
+                            <div class="col-lg-9">
+                                <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Specification}</h2>
+                            </div>
+                            <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                                <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                    <i class="fas pr-2">
+                                        <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                                stroke-linecap="square" />
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mx-0">
+                            <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                        </div>
+                        <div class="row grid-sec">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table lwc:dom="manual" class="table table-borderless f14 hasSpecification-dtTable1">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={hasCalibration}>    
+                <div class="row calibrations-grid1">
+                    <div class="col-lg-12 mb-56">
+                        <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Calibration__c"
+                            data-class=".calibration-dtTable" data-parent=".calibrations-grid1">
+                            <div class="col-lg-9">
+                                <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Calibration}</h2>
+                            </div>
+                            <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                                <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                    <i class="fas pr-2">
+                                        <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                                stroke-linecap="square" />
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mx-0">
+                            <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                        </div>
+                        <div class="row grid-sec">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table lwc:dom="manual" class="table table-borderless f14 hasCalibration-dtTable1">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={hasTechnology}>    
+                <div class="row technologys-grid1">
+                    <div class="col-lg-12 mb-56">
+                        <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Technology__c"
+                            data-class=".technology-dtTable" data-parent=".technologys-grid1">
+                            <div class="col-lg-9">
+                                <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Technology}</h2>
+                            </div>
+                            <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                                <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                    <i class="fas pr-2">
+                                        <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                                stroke-linecap="square" />
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mx-0">
+                            <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                        </div>
+                        <div class="row grid-sec">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table lwc:dom="manual" class="table table-borderless f14 hasTechnology-dtTable1">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={hasRepair}>    
+                <div class="row repair_physical_damages-grid1" >
+                    <div class="col-lg-12 mb-56">
+                        <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Repair_Physical_damage__c"
+                            data-class=".repair_physical_damage-dtTable" data-parent=".repair_physical_damages-grid1">
+                            <div class="col-lg-9">
+                                <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Repair}</h2>
+                            </div>
+                            <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                                <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                    <i class="fas pr-2">
+                                        <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                                stroke-linecap="square" />
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mx-0">
+                            <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                        </div>
+                        <div class="row grid-sec">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table lwc:dom="manual" class="table table-borderless f14 hasRepairResults-dtTable1">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={hasApplication}>    
+                <div class="row applications-grid1">
+                    <div class="col-lg-12 mb-56">
+                        <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Application__c"
+                            data-class=".application-dtTable" data-parent=".applications-grid1">
+                            <div class="col-lg-9">
+                                <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Application}</h2>
+                            </div>
+                            <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                                <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                    <i class="fas pr-2">
+                                        <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                                stroke-linecap="square" />
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mx-0">
+                            <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                        </div>
+                        <div class="row grid-sec">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table lwc:dom="manual" class="table table-borderless f14 hasApplication-dtTable1">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={hasOperation}>    
+                <div class="row operations-grid1">
+                    <div class="col-lg-12 mb-56">
+                        <div class="row mb-3 cursor-pointer toggle-panel active" onclick={doViewAll} data-type="Operation__c"
+                            data-class=".operation-dtTable" data-parent=".operations-grid1">
+                            <div class="col-lg-9">
+                                <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.Operation}</h2>
+                            </div>
+                            <div class="col-lg-3 mt-1rem text-lg-right view-all">
+                                <a href="javascript:void(0)" class="v2Link text-right yok-blue f14 text-hover-underline">
+                                    <i class="fas pr-2">
+                                        <svg class="arrow-icon" width="18" height="11" viewBox="0 0 18 11" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 9L9 2L2 9" stroke="#004F9B" stroke-width="2"
+                                                stroke-linecap="square" />
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mx-0">
+                            <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                        </div>
+                        <div class="row grid-sec">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table lwc:dom="manual" class="table table-borderless f14 hasOperation-dtTable1">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template> 
+            <div class="col-lg-12 mb-56" style="text-align: center;">
+                <template if:true={showErrorMsg}>
+                        <p>{label.noDataLbl}</p>
+                </template>   
+            </div>   
+            <!-- <div class="row viewall-recentdown-grid" style="display: none;">
+                <div class="col-lg-12 mb-56">
+                    <div class="row mb-3">
+                        <div class="col-lg-12">
+                            <h2 class="yok-blue ft-weight-800 f20 noto-font">{label.recentUpdateDownForYouLbl}
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-lg-12 grey-light-border border-bottom-0"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table lwc:dom="manual" class="table table-borderless f14 recentUpdtDown-dtTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <div class="need-help-section mb-56">
+                    <c-yg-need-help></c-yg-need-help>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
